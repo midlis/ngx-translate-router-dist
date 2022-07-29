@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, Injectable, Inject, Pipe, PLATFORM_ID, NgModuleFactory, ApplicationRef, Injector, Compiler, Optional, SkipSelf, APP_INITIALIZER, NgModule } from '@angular/core';
 import * as i3 from '@angular/router';
-import { NavigationStart, NavigationCancel, Router, ActivatedRoute, ROUTES, UrlSerializer, ChildrenOutletContexts, ROUTER_CONFIGURATION, UrlHandlingStrategy, RouteReuseStrategy, RouterModule } from '@angular/router';
+import { NavigationStart, NavigationCancel, Router, ActivatedRoute, ROUTES, TitleStrategy, UrlSerializer, ChildrenOutletContexts, ROUTER_CONFIGURATION, UrlHandlingStrategy, RouteReuseStrategy, RouterModule } from '@angular/router';
 import { firstValueFrom, Observable, Subject, ReplaySubject, of, from, isObservable } from 'rxjs';
 import { filter, pairwise, mergeMap, map } from 'rxjs/operators';
 import * as i1 from '@ngx-translate/core';
@@ -1038,6 +1038,8 @@ class LocalizedRouter extends Router {
 }
 function setupRouter(ref, urlSerializer, contexts, location, injector, compiler, config, localize, opts = {}, urlHandlingStrategy, routeReuseStrategy) {
     const router = new LocalizedRouter(null, urlSerializer, contexts, location, injector, compiler, flatten(config), localize);
+    const titleStrategy = injector.get(TitleStrategy);
+    router.titleStrategy = titleStrategy;
     if (urlHandlingStrategy) {
         router.urlHandlingStrategy = urlHandlingStrategy;
     }
